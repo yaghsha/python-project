@@ -1,47 +1,24 @@
-from turtle import Screen, Turtle
-from paddle import Paddle
-from ball import Ball
-from scoreboard import Scoreboard
-import time
+#TODO: Create a letter using starting_letter.txt
 
-screen = Screen()
-screen.bgcolor("black")
-screen.setup(width=800, height=600)
-screen.title("Pong")
-screen.tracer(0)
+PLACEHOLDER = "[name]"
 
-r_paddle = Paddle((350, 0))
-l_paddle = Paddle((-350, 0))
-ball = Ball()
-scoreboard = Scoreboard()
 
-screen.listen()
-screen.onkey(r_paddle.go_up, "Up")
-screen.onkey(r_paddle.go_down, "Down")
-screen.onkey(l_paddle.go_up, "w")
-screen.onkey(l_paddle.go_down, "s")
+with open("./Input/Names/invited_names.txt") as names_files:
+    names = names_files.readlines()
+    print(names)
 
-game_is_on = True
-while game_is_on:
-    screen.update()
-    ball.move()
+with (open("./Input/Letters/starting_letter.txt") as letter_file):
+    letter_contents = letter_file.read()
+    for name in names:
+        stripped_name = name.strip()
+        new_letter = letter_contents.replace(PLACEHOLDER, stripped_name)
+        with open(f"./Output/ReadyToSend/letter_for_{stripped_name}.docx", mode= "w") as completed_letter:
+            completed_letter.write(new_letter)
 
-    #Detect collision with wall
-    if ball.ycor() > 280 or ball.ycor() < -280:
-        ball.bounce_y()
-
-    #Detect collision with paddle
-    if ball.distance(r_paddle) < 50 and ball.xcor() > 320 or ball.distance(l_paddle) < 50 and ball.xcor() < -320:
-        ball.bounce_x()
-
-    #Detect R paddle misses
-    if ball.xcor() > 380:
-        ball.reset_position()
-        scoreboard.l_point()
-
-    #Detect L paddle misses:
-    if ball.xcor() < -380:
-        ball.reset_position()
-        scoreboard.r_point()
-
-screen.exitonclick()
+#for each name in invited_names.txt
+#Replace the [name] placeholder with the actual name.
+#Save the letters in the folder "ReadyToSend".
+    
+#Hint1: This method will help you: https://www.w3schools.com/python/ref_file_readlines.asp
+    #Hint2: This method will also help you: https://www.w3schools.com/python/ref_string_replace.asp
+        #Hint3: THis method will help you: https://www.w3schools.com/python/ref_string_strip.asp
