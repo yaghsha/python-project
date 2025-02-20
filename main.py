@@ -1,24 +1,53 @@
-#TODO: Create a letter using starting_letter.txt
+# with open("weather_data.csv") as data_file:
+#     data = data_file.readlines()
+#     print(data)
 
-PLACEHOLDER = "[name]"
+# import csv
+#
+# with open("weather_data.csv") as data_file:
+#     data = csv.reader(data_file)
+#     temperatures = []
+#     for row in data:
+#         if row[1] != "temp":
+#             temperatures.append(int(row[1]))
+#     print(temperatures)
 
+# import pandas
+#
+# data = pandas.read_csv("weather_data.csv")
+# print(type(data))
+#print(data["temp"])
 
-with open("./Input/Names/invited_names.txt") as names_files:
-    names = names_files.readlines()
-    print(names)
+# data_dict = data.to_dict()
+# print(data_dict)
+#
+# temp_list = data["temp"].to_list()
+# print(len(temp_list))
+#
+# print(data["temp"].mean())
+#print(data["temp"].max())
 
-with (open("./Input/Letters/starting_letter.txt") as letter_file):
-    letter_contents = letter_file.read()
-    for name in names:
-        stripped_name = name.strip()
-        new_letter = letter_contents.replace(PLACEHOLDER, stripped_name)
-        with open(f"./Output/ReadyToSend/letter_for_{stripped_name}.docx", mode= "w") as completed_letter:
-            completed_letter.write(new_letter)
+# print(data[data.day == "Monday"])
+# print(data[data.temp == data.temp.max()])
+#
+# monday = data[data.day == "Monday"]
+# monday_temp = monday.temp[0]
+# monday_F = monday_temp * 9/5 + 32
+# print(monday_F)
 
-#for each name in invited_names.txt
-#Replace the [name] placeholder with the actual name.
-#Save the letters in the folder "ReadyToSend".
-    
-#Hint1: This method will help you: https://www.w3schools.com/python/ref_file_readlines.asp
-    #Hint2: This method will also help you: https://www.w3schools.com/python/ref_string_replace.asp
-        #Hint3: THis method will help you: https://www.w3schools.com/python/ref_string_strip.asp
+import pandas
+
+data = pandas.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+grey_squirrel_count = len(data[data["Primary Fur Color"] == "Gray"])
+red_squirrel_count = len(data[data["Primary Fur Color"] == "Cinnamon"])
+black_squirrel_count = len(data[data["Primary Fur Color"] == "Black"])
+print(grey_squirrel_count)
+print(red_squirrel_count)
+print(black_squirrel_count)
+
+data_dict ={
+    "Fur Color": ["Gray","Cinnamon","Black"],
+    "Count": [grey_squirrel_count,red_squirrel_count,black_squirrel_count]
+}
+df = pandas.DataFrame(data_dict)
+df.to_csv("squirrel_count.csv")
